@@ -3,18 +3,20 @@ package com.alirezamp.compose_patterns_example.presentation.home_screen
 import androidx.lifecycle.viewModelScope
 import com.alirezamp.compose_patterns_example.base.BaseViewModel
 import com.alirezamp.compose_patterns_example.base.Reducer
-import com.alirezamp.compose_patterns_example.data.repository_impl.PostRepository
+import com.alirezamp.compose_patterns_example.domain.usecase.GetPostsUseCase
 import com.alirezamp.compose_patterns_example.domain.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel
 @Inject
 constructor(
-    private val repository: PostRepository,
+    private val postsUseCase: GetPostsUseCase,
     private val homeScreenViewDataMapper: HomeScreenViewDataMapper,
 ) : BaseViewModel<HomeScreenState, HomeScreenEvent>() {
 
@@ -69,12 +71,15 @@ constructor(
     private fun getData() {
         viewModelScope.launch {
             sendEvent(HomeScreenEvent.OnLoading)
-            when (val posts = repository.getPosts()) {
+            val data = withContext(Dispatchers.IO) {
+                postsUseCase()
+            }
+            when (data) {
                 is Resource.Success -> {
                     sendEvent(
                         HomeScreenEvent.ShowData(
                             items = homeScreenViewDataMapper.buildScreen(
-                                posts = posts.data,
+                                posts = data.data,
                             )
                         )
                     )
@@ -82,8 +87,8 @@ constructor(
                 is Resource.Error -> {
                     sendEvent(
                         HomeScreenEvent.ShowData(
-                            error = posts.message,
-                            items = homeScreenViewDataMapper.buildScreen(posts = posts.data),
+                            error = data.message,
+                            items = homeScreenViewDataMapper.buildScreen(posts = data.data),
                         )
                     )
                 }
