@@ -1,19 +1,19 @@
 package com.alirezamp.compose_patterns_example.data.repository_impl
 
-import com.alirezamp.compose_patterns_example.data.datasource_impl.post.PostLocalDatasource
-import com.alirezamp.compose_patterns_example.data.datasource_impl.post.PostRemoteDatasource
+import com.alirezamp.compose_patterns_example.data.datasource.IPostDatasource
 import com.alirezamp.compose_patterns_example.domain.model.Post
 import com.alirezamp.compose_patterns_example.domain.repository.IPostRepository
 import com.alirezamp.compose_patterns_example.domain.utils.Resource
 import com.alirezamp.compose_patterns_example.utils.ApiException
 import com.alirezamp.compose_patterns_example.utils.OnlineChecker
 import javax.inject.Inject
+import javax.inject.Named
 
 class PostRepository
 @Inject
 constructor(
-    private val postRemoteDatasource: PostRemoteDatasource,
-    private val postLocalDatasource: PostLocalDatasource,
+    @Named("PostRemoteDatasource") private val postRemoteDatasource: IPostDatasource,
+    @Named("PostLocalDatasource") private val postLocalDatasource: IPostDatasource,
     private val onlineChecker: OnlineChecker,
 ) : IPostRepository {
 

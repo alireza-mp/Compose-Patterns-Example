@@ -25,53 +25,71 @@ fun HomeScreen() {
 
         when {
             state.isLoading -> {
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(it),
+                    contentAlignment = Alignment.Center
+                ) {
                     CircularProgressIndicator()
                 }
             }
             state.data.isNotEmpty() -> {
-                LazyColumn(modifier = Modifier.padding(it)) {
-                    item {
-                        state.error?.let {
-                            ErrorView(viewModel = viewModel, state = state)
-                        }
-                    }
-                    itemsIndexed(items = state.data) { _, item ->
-                        when (item) {
-                            is HomeScreenViewDataModel.PressMeButton -> {
-                                Box(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    contentAlignment = Alignment.Center,
-                                ) {
-                                    Button(onClick = viewModel::onButtonClick) {
-                                        Text(text = "press me!")
-                                    }
-                                }
-                            }
-                            is HomeScreenViewDataModel.PostItem -> {
-                                Text(
-                                    modifier = Modifier.padding(vertical = 10.dp),
-                                    text = item.title,
-                                )
-                            }
-                        }
-                    }
-                }
+                RenderPostList(
+                    viewModel = viewModel,
+                    errorMessage = state.error,
+                    data = state.data,
+                )
             }
             state.error != null -> {
-                ErrorView(viewModel = viewModel, state = state)
+                ErrorView(viewModel = viewModel, errorMessage = state.error)
             }
         }
     }
 }
 
 @Composable
-private fun ErrorView(viewModel: HomeViewModel, state: HomeScreenState) {
+private fun RenderPostList(
+    viewModel: HomeViewModel,
+    errorMessage: String?,
+    data: List<HomeScreenViewDataModel>,
+) {
+    LazyColumn {
+        item {
+            errorMessage?.let {
+                ErrorView(viewModel = viewModel, errorMessage)
+            }
+        }
+        itemsIndexed(items = data) { _, item ->
+            when (item) {
+                is HomeScreenViewDataModel.PressMeButton -> {
+                    Box(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Button(onClick = viewModel::onButtonClick) {
+                            Text(text = "press me!")
+                        }
+                    }
+                }
+                is HomeScreenViewDataModel.PostItem -> {
+                    Text(
+                        modifier = Modifier.padding(vertical = 10.dp),
+                        text = item.title,
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun ErrorView(viewModel: HomeViewModel, errorMessage: String?) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(text = state.error ?: "")
+        Text(text = errorMessage ?: "")
         Spacer(modifier = Modifier.padding(top = 12.dp))
         Button(onClick = viewModel::onButtonClick) {
             Text(text = "tap to try again!")

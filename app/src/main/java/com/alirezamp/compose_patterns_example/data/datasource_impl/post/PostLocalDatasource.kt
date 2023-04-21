@@ -5,8 +5,10 @@ import com.alirezamp.compose_patterns_example.data.db.dao.PostDao
 import com.alirezamp.compose_patterns_example.data.mappers.mapFromDomainModel
 import com.alirezamp.compose_patterns_example.data.mappers.mapToDomainModel
 import com.alirezamp.compose_patterns_example.domain.model.Post
+import javax.inject.Inject
 
-class PostLocalDatasource(
+class PostLocalDatasource
+@Inject constructor(
     private val postDao: PostDao,
 ) : IPostDatasource {
 
@@ -14,7 +16,7 @@ class PostLocalDatasource(
         return postDao.getPosts().map { it.mapToDomainModel() }
     }
 
-    suspend fun savePosts(posts: List<Post>) {
+    override suspend fun savePosts(posts: List<Post>) {
         postDao.savePosts(posts.map { it.mapFromDomainModel() })
     }
 

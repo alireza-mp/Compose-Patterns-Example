@@ -24,4 +24,8 @@ constructor(
             throw ApiException("has api error")
         }
     }
+
+    override suspend fun savePosts(posts: List<Post>) {
+        TODO("this not used here. this used from local datasource for save posts to db")
+    }
 }
