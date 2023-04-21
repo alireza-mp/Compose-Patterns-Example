@@ -6,4 +6,6 @@ interface IPostDatasource {
 
     suspend fun getPosts(): List<Post>
 
+    suspend fun savePosts(posts: List<Post>)
+
 }
