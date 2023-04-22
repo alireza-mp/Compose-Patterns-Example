@@ -2,8 +2,8 @@ package com.alirezamp.compose_patterns_example.di
 
 import android.app.Application
 import androidx.room.Room
-import com.alirezamp.compose_patterns_example.data.db.AppDatabase
-import com.alirezamp.compose_patterns_example.data.db.dao.PostDao
+import com.alirezamp.compose_patterns_example.data.local.AppDatabase
+import com.alirezamp.compose_patterns_example.data.local.dao.PostDao
 import com.alirezamp.compose_patterns_example.utils.Constants
 import dagger.Module
 import dagger.Provides

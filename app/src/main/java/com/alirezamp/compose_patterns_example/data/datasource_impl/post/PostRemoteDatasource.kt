@@ -1,8 +1,8 @@
 package com.alirezamp.compose_patterns_example.data.datasource_impl.post
 
-import com.alirezamp.compose_patterns_example.data.api.PostService
 import com.alirezamp.compose_patterns_example.data.datasource.IPostDatasource
 import com.alirezamp.compose_patterns_example.data.mappers.mapToDomainModel
+import com.alirezamp.compose_patterns_example.data.remote.PostService
 import com.alirezamp.compose_patterns_example.domain.model.Post
 import com.alirezamp.compose_patterns_example.utils.ApiException
 import javax.inject.Inject
@@ -18,10 +18,10 @@ constructor(
             if (response.isSuccessful) {
                 response.body()?.map { it.mapToDomainModel() } ?: listOf()
             } else {
-                throw ApiException("has api error", statusCode = response.code())
+                throw ApiException("api error : ", statusCode = response.code())
             }
         } catch (e: Exception) {
-            throw ApiException("has api error")
+            throw ApiException("check your internet connection!")
         }
     }
 

@@ -1,4 +1,4 @@
-package com.alirezamp.compose_patterns_example.data.api.model
+package com.alirezamp.compose_patterns_example.data.remote.model
 
 
 import com.squareup.moshi.Json

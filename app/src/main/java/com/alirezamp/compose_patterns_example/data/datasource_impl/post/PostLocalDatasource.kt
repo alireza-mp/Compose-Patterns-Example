@@ -1,7 +1,7 @@
 package com.alirezamp.compose_patterns_example.data.datasource_impl.post
 
 import com.alirezamp.compose_patterns_example.data.datasource.IPostDatasource
-import com.alirezamp.compose_patterns_example.data.db.dao.PostDao
+import com.alirezamp.compose_patterns_example.data.local.dao.PostDao
 import com.alirezamp.compose_patterns_example.data.mappers.mapFromDomainModel
 import com.alirezamp.compose_patterns_example.data.mappers.mapToDomainModel
 import com.alirezamp.compose_patterns_example.domain.model.Post
@@ -13,11 +13,19 @@ class PostLocalDatasource
 ) : IPostDatasource {
 
     override suspend fun getPosts(): List<Post> {
-        return postDao.getPosts().map { it.mapToDomainModel() }
+        return try {
+            postDao.getPosts().map { it.mapToDomainModel() }
+        } catch (e: Exception) {
+            throw e
+        }
     }
 
     override suspend fun savePosts(posts: List<Post>) {
-        postDao.savePosts(posts.map { it.mapFromDomainModel() })
+        try {
+            postDao.savePosts(posts.map { it.mapFromDomainModel() })
+        } catch (e: Exception) {
+            throw e
+        }
     }
 
 }
