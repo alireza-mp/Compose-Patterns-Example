@@ -1,4 +1,4 @@
-package com.alirezamp.compose_patterns_example.data.api.model
+package com.alirezamp.compose_patterns_example.data.remote.model
 
 
 import com.squareup.moshi.Json
@@ -11,5 +11,5 @@ data class PostRemoteDto(
     @Json(name = "title")
     val title: String,
     @Json(name = "userId")
-    val userId: Int
+    val userId: Int,
 )

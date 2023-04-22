@@ -1,9 +1,9 @@
-package com.alirezamp.compose_patterns_example.data.db
+package com.alirezamp.compose_patterns_example.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.alirezamp.compose_patterns_example.data.db.dao.PostDao
-import com.alirezamp.compose_patterns_example.data.db.entity.PostLocalDto
+import com.alirezamp.compose_patterns_example.data.local.dao.PostDao
+import com.alirezamp.compose_patterns_example.data.local.entity.PostLocalDto
 
 
 @Database(entities = [PostLocalDto::class], version = 1)

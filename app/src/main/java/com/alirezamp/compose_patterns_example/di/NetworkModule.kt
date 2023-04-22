@@ -1,7 +1,7 @@
 package com.alirezamp.compose_patterns_example.di
 
 import android.app.Application
-import com.alirezamp.compose_patterns_example.data.api.PostService
+import com.alirezamp.compose_patterns_example.data.remote.PostService
 import com.alirezamp.compose_patterns_example.utils.Constants
 import com.alirezamp.compose_patterns_example.utils.ExperimentalOnlineChecker
 import com.alirezamp.compose_patterns_example.utils.OnlineChecker

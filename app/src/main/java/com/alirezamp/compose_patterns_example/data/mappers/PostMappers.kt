@@ -1,7 +1,7 @@
 package com.alirezamp.compose_patterns_example.data.mappers
 
-import com.alirezamp.compose_patterns_example.data.api.model.PostRemoteDto
-import com.alirezamp.compose_patterns_example.data.db.entity.PostLocalDto
+import com.alirezamp.compose_patterns_example.data.local.entity.PostLocalDto
+import com.alirezamp.compose_patterns_example.data.remote.model.PostRemoteDto
 import com.alirezamp.compose_patterns_example.domain.model.Post
 
 /*

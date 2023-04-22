@@ -47,7 +47,14 @@ constructor(
     * load posts from local db
     */
     private suspend fun getPostsFromLocalDb(): Resource<List<Post>> {
-        return Resource.Success(postLocalDatasource.getPosts())
+        return try {
+            Resource.Success(postLocalDatasource.getPosts())
+        } catch (e: Exception) {
+            Resource.Error(
+                message = "${e.message}",
+                data = emptyList(),
+            )
+        }
     }
 
 }

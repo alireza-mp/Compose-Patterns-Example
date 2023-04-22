@@ -1,4 +1,4 @@
-package com.alirezamp.compose_patterns_example.data.db.entity
+package com.alirezamp.compose_patterns_example.data.local.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
