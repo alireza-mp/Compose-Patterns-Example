@@ -14,3 +14,9 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Compose-Patterns-Example"
 include ':app'
+include ':data:posts-remote'
+include ':data:posts-local'
+include ':data:posts-repository'
+include ':domain:posts'
+include ':library:designsystem'
+include ':feature:postlist'
